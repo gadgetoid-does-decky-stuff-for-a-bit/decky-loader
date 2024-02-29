@@ -21,7 +21,7 @@ class UnixSocket:
 
     async def setup_server(self):
         self.socket = await asyncio.start_unix_server(self._listen_for_method_call, path=self.socket_addr, limit=BUFFER_LIMIT)
-    
+
     async def _open_socket_if_not_exists(self):
         if not self.reader:
             retries = 0
@@ -39,9 +39,9 @@ class UnixSocket:
     async def get_socket_connection(self):
         if not await self._open_socket_if_not_exists():
             return None, None
-        
+
         return self.reader, self.writer
-    
+
     async def close_socket_connection(self):
         if self.writer != None:
             self.writer.close()
@@ -83,7 +83,7 @@ class UnixSocket:
                 break
 
         return line.decode("utf-8")
-    
+
     async def _write_single_line(self, writer: asyncio.StreamWriter, message : str):
         if not message.endswith("\n"):
             message += "\n"
@@ -102,7 +102,7 @@ class UnixSocket:
 
             if res != None:
                 await self._write_single_line(writer, res)
-            
+
 class PortSocket (UnixSocket):
     def __init__(self, on_new_message: Callable[[str], Awaitable[str|None]]):
         '''
@@ -113,10 +113,10 @@ class PortSocket (UnixSocket):
         super().__init__(on_new_message)
         self.host = "127.0.0.1"
         self.port = random.sample(range(40000, 60000), 1)[0]
-    
+
     async def setup_server(self):
         self.socket = await asyncio.start_server(self._listen_for_method_call, host=self.host, port=self.port, limit=BUFFER_LIMIT)
-    
+
     async def _open_socket_if_not_exists(self):
         if not self.reader:
             retries = 0

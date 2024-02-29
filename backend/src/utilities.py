@@ -206,8 +206,8 @@ class Utilities:
         await service_stop(helpers.REMOTE_DEBUGGER_UNIT)
         return True
 
-    async def filepicker_ls(self, 
-                            path : str | None = None, 
+    async def filepicker_ls(self,
+                            path : str | None = None,
                             include_files: bool = True,
                             include_folders: bool = True,
                             include_ext: list[str] = [],
@@ -216,7 +216,7 @@ class Utilities:
                             filter_for: str | None = None,
                             page: int = 1,
                             max: int = 1000):
-        
+
         if path == None:
             path = get_home_path()
 
@@ -248,7 +248,7 @@ class Utilities:
                     files = list(filter(lambda file: re.search(filter_for, file["file"].name) != None, files))
             except re.error:
                 files = list(filter(lambda file: file["file"].name.find(filter_for) != -1, files))
-        
+
         # Ordering logic
         ord_arg = order_by.split("_")
         ord = ord_arg[0]
@@ -270,7 +270,7 @@ class Utilities:
             case _:
                 files.sort(key=lambda x: x['file'].name.casefold(), reverse = rev)
                 folders.sort(key=lambda x: x['file'].name.casefold(), reverse = rev)
-        
+
         #Constructing the final file list, folders first
         all =   [{
                     "isdir": x['is_dir'],
@@ -286,7 +286,7 @@ class Utilities:
             "files": all[(page-1)*max:(page)*max],
             "total": len(all),
         }
-        
+
 
     # Based on https://stackoverflow.com/a/46422554/13174603
     def start_rdt_proxy(self, ip: str, port: int):
@@ -368,6 +368,6 @@ class Utilities:
             "username": get_username(),
             "path": get_home_path()
         }
-    
+
     async def get_tab_id(self, name: str):
         return (await get_tab(name)).id

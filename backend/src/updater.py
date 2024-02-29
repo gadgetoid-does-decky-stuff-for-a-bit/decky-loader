@@ -202,7 +202,7 @@ class Updater:
                 shutil.move(path.join(getcwd(), download_filename + ".unzipped"), path.join(getcwd(), download_filename))
             else:
                 shutil.move(path.join(getcwd(), download_temp_filename), path.join(getcwd(), download_filename))
-            
+
             chmod(path.join(getcwd(), download_filename), 777, False)
             if get_selinux():
                 from asyncio.subprocess import create_subprocess_exec
@@ -230,7 +230,7 @@ class Updater:
             if x["name"] == download_filename:
                 download_url = x["browser_download_url"]
                 break
-        
+
         if download_url == None:
             raise Exception("Download url not found")
 
@@ -256,14 +256,14 @@ class Updater:
                 service_data = service_data.replace("${HOMEBREW_FOLDER}", helpers.get_homebrew_path())
                 with open(path.join(getcwd(), "plugin_loader.service"), "w", encoding="utf-8") as service_file:
                         service_file.write(service_data)
-                    
+
                 logger.debug("Saved service file")
                 logger.debug("Copying service file over current file.")
                 shutil.copy(service_file_path, "/etc/systemd/system/plugin_loader.service")
                 if not os.path.exists(path.join(getcwd(), ".systemd")):
                     os.mkdir(path.join(getcwd(), ".systemd"))
                 shutil.move(service_file_path, path.join(getcwd(), ".systemd")+"/plugin_loader.service")
-            
+
         await self.download_decky_binary(download_url, version)
 
     async def do_restart(self):
@@ -272,7 +272,7 @@ class Updater:
     async def get_testing_versions(self) -> List[TestingVersion]:
         result: List[TestingVersion] = []
         async with ClientSession() as web:
-            async with web.request("GET", "https://api.github.com/repos/SteamDeckHomebrew/decky-loader/pulls", 
+            async with web.request("GET", "https://api.github.com/repos/SteamDeckHomebrew/decky-loader/pulls",
                     headers={'X-GitHub-Api-Version': '2022-11-28'}, params={'state':'open'}, ssl=helpers.get_ssl_context()) as res:
                 open_prs = await res.json()
                 for pr in open_prs:
@@ -288,7 +288,7 @@ class Updater:
         down_id = ''
         #Get all the associated workflow run for the given sha_id code hash
         async with ClientSession() as web:
-            async with web.request("GET", "https://api.github.com/repos/SteamDeckHomebrew/decky-loader/actions/runs", 
+            async with web.request("GET", "https://api.github.com/repos/SteamDeckHomebrew/decky-loader/actions/runs",
                     headers={'X-GitHub-Api-Version': '2022-11-28'}, params={'event':'pull_request', 'head_sha': sha_id}, ssl=helpers.get_ssl_context()) as res:
                 works = await res.json()
         #Iterate over the workflow_run to get the two builds if they exists

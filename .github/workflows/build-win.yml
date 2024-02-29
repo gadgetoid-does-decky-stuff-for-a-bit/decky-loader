@@ -20,12 +20,12 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 18
-      
+
     - name: Set up Python 3.11.4 🐍
       uses: actions/setup-python@v4
       with:
         python-version: "3.11.4"
-        
+
     - name: Install Python dependencies ⬇️
       working-directory: ./backend
       run: |
@@ -48,7 +48,7 @@ jobs:
 
     - name: Build Python Backend (noconsole) 🛠️
       run: pyinstaller --noconfirm --noconsole --onefile --name "PluginLoader_noconsole" --add-data "./backend/static;/static" --add-data "./backend/locales;/locales" --add-data "./backend/src/legacy;/src/legacy" --add-data "./plugin;/plugin" --hidden-import=logging.handlers --hidden-import=sqlite3 ./backend/main.py
-        
+
     - name: Upload package artifact ⬆️
       uses: actions/upload-artifact@v3
       with:
@@ -56,4 +56,4 @@ jobs:
         path: |
           ./dist/PluginLoader.exe
           ./dist/PluginLoader_noconsole.exe
-    
+

@@ -78,7 +78,7 @@ class PluginWrapper:
 
             # append the plugin's `py_modules` to the recognized python paths
             syspath.append(path.join(environ["DECKY_PLUGIN_DIR"], "py_modules"))
-            
+
             #TODO: FIX IN A LESS CURSED WAY
             keys = [key.replace("src.", "") for key in sysmodules if key.startswith("src.")]
             for key in keys:
@@ -148,14 +148,14 @@ class PluginWrapper:
         async def _(self: PluginWrapper):
             await self.socket.write_single_line(dumps({ "stop": True }, ensure_ascii=False))
             await self.socket.close_socket_connection()
-            
+
         get_event_loop().create_task(_(self))
 
     async def execute_method(self, method_name: str, kwargs: Dict[Any, Any]):
         if self.passive:
             raise RuntimeError("This plugin is passive (aka does not implement main.py)")
         async with self.method_call_lock:
-            # reader, writer = 
+            # reader, writer =
             await self.socket.get_socket_connection()
 
             await self.socket.write_single_line(dumps({ "method": method_name, "args": kwargs }, ensure_ascii=False))

@@ -2,7 +2,7 @@
 import sys
 from typing import Dict
 from .localplatform import (chmod, chown, service_stop, service_start,
-                            ON_WINDOWS, get_log_level, get_live_reload, 
+                            ON_WINDOWS, get_log_level, get_live_reload,
                             get_server_port, get_server_host, get_chown_plugin_path,
                             get_privileged_path)
 if hasattr(sys, '_MEIPASS'):
@@ -24,7 +24,7 @@ from aiohttp_jinja2 import setup as jinja_setup
 from .browser import PluginBrowser
 from .helpers import (REMOTE_DEBUGGER_UNIT, csrf_middleware, get_csrf_token,
                      mkdir_as_user, get_system_pythonpaths, get_effective_user_id)
-                     
+
 from .injector import get_gamepadui_tab, Tab, close_old_tabs
 from .loader import Loader
 from .settings import SettingsManager
@@ -65,7 +65,7 @@ class PluginManager:
         })
         self.plugin_loader = Loader(self, plugin_path, self.loop, get_live_reload())
         self.settings = SettingsManager("loader", path.join(get_privileged_path(), "settings"))
-        self.plugin_browser = PluginBrowser(plugin_path, self.plugin_loader.plugins, self.plugin_loader, self.settings) 
+        self.plugin_browser = PluginBrowser(plugin_path, self.plugin_loader.plugins, self.plugin_loader, self.settings)
         self.utilities = Utilities(self)
         self.updater = Updater(self)
 

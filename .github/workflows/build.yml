@@ -46,12 +46,12 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 18
-      
+
     - name: Set up Python 3.10.6 🐍
       uses: actions/setup-python@v4
       with:
         python-version: "3.10.6"
-    
+
     - name: Upgrade SQLite 3 binary version to 3.42.0 🧑‍💻
       run: >
         cd /tmp &&
@@ -88,7 +88,7 @@ jobs:
 
     - name: Build Python Backend 🛠️
       run: pyinstaller --noconfirm --onefile --name "PluginLoader" --add-data ./backend/static:/static --add-data ./backend/locales:/locales --add-data ./backend/src/legacy:/src/legacy --add-data ./plugin:/plugin --hidden-import=logging.handlers --hidden-import=sqlite3 ./backend/main.py
-        
+
     - name: Upload package artifact ⬆️
       if: ${{ !env.ACT }}
       uses: actions/upload-artifact@v3
@@ -180,7 +180,7 @@ jobs:
         files: ./dist/PluginLoader
         prerelease: false
         generate_release_notes: true
-  
+
   prerelease:
     name: Release the pre-release version of the package
     if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.release == 'prerelease' }}

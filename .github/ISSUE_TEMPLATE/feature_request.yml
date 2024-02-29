@@ -16,7 +16,7 @@ body:
   - type: textarea
     attributes:
       label: Feature Request Description
-      description: A clear and concise description of what the new feature. 
+      description: A clear and concise description of what the new feature.
       placeholder: |
         Decky plugins should be sortable in the quick access menu
     validations:

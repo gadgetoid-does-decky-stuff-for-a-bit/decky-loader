@@ -83,7 +83,7 @@ class Loader:
             self.observer.schedule(self.watcher, self.plugin_path, recursive=True) # type: ignore
             self.observer.start()
             self.loop.create_task(self.enable_reload_wait())
-            
+
         server_instance.web_app.add_routes([
             web.get("/frontend/{path:.*}", self.handle_frontend_assets),
             web.get("/locales/{path:.*}", self.handle_frontend_locales),

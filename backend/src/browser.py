@@ -304,5 +304,5 @@ class PluginBrowser:
         if name in plugin_order:
             plugin_order.remove(name)
             self.settings.setSetting("pluginOrder", plugin_order)
-            
+
         logger.debug("Removed any settings for plugin %s", name)

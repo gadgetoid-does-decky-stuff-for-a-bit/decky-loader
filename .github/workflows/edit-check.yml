@@ -15,7 +15,7 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v3
-      
+
     - name: Get changed files
       id: changed-files
       uses: tj-actions/changed-files@v41.0.0
@@ -23,7 +23,7 @@ jobs:
         separator: ","
         files: |
           plugin/*
-          
+
     - name: Is stub changed
       id: changed-stub
       run: |

@@ -48,7 +48,7 @@ class Tab:
                 yield data
             logger.warn(f"The Tab {self.title} socket has been disconnected while listening for messages.")
             await self.close_websocket()
-            
+
     async def _send_devtools_cmd(self, dc: Dict[str, Any], receive: bool = True):
         if self.websocket:
             self.cmd_id += 1
@@ -164,7 +164,7 @@ class Tab:
             assert breakpoint_res is not None
 
             logger.info(breakpoint_res)
-            
+
             # Page finishes loading when breakpoint hits
 
             for _ in range(20):
